@@ -1,13 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const getrandomText = () => `code react windows mac laptop macbook
-coding html earth wood`.split(' ').sort(() => Math.random() > 0.5 ? 1 : -1)
+
 
 Word = React.memo(Word)
 
 function Word(props) {
+
   const { text, active, correct } = props
 
   if (correct === true) {
@@ -26,10 +27,12 @@ function Word(props) {
 
 function App() {
   const [userInput, setUserInput] = useState("")
-  const randomText = useRef(getrandomText())
   const [activeTextIndex, setActiveTextIndex] = useState(0)
   const [correctWordArray, setCorrectWordArray] = useState([])
   const [startCounting, setStartCounting] = useState(false)
+
+  const data = useSelector((state)=>state.typing.randomText)
+  const randomText = useRef(data.split(' ').sort(() => Math.random() > 0.5 ? 1 : -1))
 
   function processInput(value) {
 
